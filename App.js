@@ -1,20 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import BuyerHomeScreen from "./app/screens/components/buyer/screens";
+import BuyerWelcomeScreen from "./app/screens/components/buyer/screens";
+import ActiveDeliveries from "./app/screens/components/buyer/screens/ActiveDeliveries";
+import QRCodeScanner from "./app/screens/components/buyer/screens/BuyerScanningQr";
+import BuyerProfileEdit from "./app/screens/components/buyer/screens/ProfileEdit";
+import ThankYouPage from "./app/screens/components/buyer/screens/ThankYou";
+import DashBoard from "./app/screens/dashboard/dashboard";
+import WelcomeScreen from "./app/screens/home";
+import HomeScreenMain from "./app/screens/home/HomeScreenMain";
+import Login from "./app/screens/login/Login";
+import PasswordReset from "./app/screens/password_reset";
+import ConfirmPasswordResetCode from "./app/screens/password_reset/Confirm";
+import UpdatePassword from "./app/screens/password_reset/NewPassword";
+import SignUp from "./app/screens/sign_up/SignUp";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  return <ThankYouPage />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
