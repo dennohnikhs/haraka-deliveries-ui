@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   StyleSheet,
   Text,
@@ -10,6 +11,15 @@ import {
 import colors from "../../colors/colors";
 
 export default function WelcomeScreen(props) {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.navigate("Dashboard");
+    }, 700);
+
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <View style={styles.background}>
       <StatusBar style="auto" />

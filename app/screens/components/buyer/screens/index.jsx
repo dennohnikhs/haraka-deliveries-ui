@@ -3,24 +3,33 @@ import {
   StyleSheet,
   Text,
   View,
-  ImageBackground,
   Image,
   StatusBar,
   TouchableOpacity,
 } from "react-native";
 import colors from "../../../../colors/colors";
+import { useNavigation } from "@react-navigation/native";
 
 export default function BuyerHomeScreen(props) {
+  const navigation = useNavigation();
+  const handleActiveDeliveries = () => {
+    navigation.navigate("ActiveDeliveries");
+  };
+  const handleProfileEdit = () => {
+    navigation.navigate("BuyerProfileEdit");
+  };
   return (
     <View style={styles.background}>
       <StatusBar style="auto" />
       <View style={styles.buyerHeadlineContainer}>
         <View style={styles.welcomeContainer}>
           <Text style={styles.welcomeText}>Welcome</Text>
-          <Image
-            style={styles.buyerProfileImage}
-            source={require("../../../../assets/logo.png")}
-          />
+          <TouchableOpacity onPress={handleProfileEdit}>
+            <Image
+              style={styles.buyerProfileImage}
+              source={require("../../../../assets/logo.png")}
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.deliveriesDisplay}>
           <Text style={styles.totalDeliveriesText}>Total Deliveries</Text>
@@ -29,7 +38,10 @@ export default function BuyerHomeScreen(props) {
       </View>
 
       <View style={styles.logoContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleActiveDeliveries}
+        >
           <Text style={styles.buttonText}>Active Deliveries</Text>
         </TouchableOpacity>
         <Image

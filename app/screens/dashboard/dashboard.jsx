@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   StyleSheet,
   Text,
   View,
-  ImageBackground,
   Image,
   StatusBar,
   TouchableOpacity,
 } from "react-native";
 import colors from "../../colors/colors";
+import { GlobalContext } from "../../../context";
 
 export default function DashBoard(props) {
+  const navigation = useNavigation();
+  const { updateState } = useContext(GlobalContext);
+
+  const navigateToLogin = (userType) => {
+    updateState({
+      userType: userType,
+    });
+
+    navigation.navigate("Login");
+  };
   return (
     <View style={styles.background}>
       <StatusBar style="auto" />
@@ -20,16 +31,36 @@ export default function DashBoard(props) {
         <Text style={styles.harakaText}>Haraka Deliveries</Text>
         <Text style={styles.proceedText}>Proceed as?</Text>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Buyer</Text>
+          <Text
+            style={styles.buttonText}
+            onPress={() => navigateToLogin("buyer")}
+          >
+            Buyer
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Seller</Text>
+          <Text
+            style={styles.buttonText}
+            onPress={() => navigateToLogin("seller")}
+          >
+            Seller
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Boda Boda Guy</Text>
+          <Text
+            style={styles.buttonText}
+            onPress={() => navigateToLogin("bodabodaguy")}
+          >
+            Boda Boda Guy
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Courier Company</Text>
+          <Text
+            style={styles.buttonText}
+            onPress={() => navigateToLogin("couriercompany")}
+          >
+            Courier Company
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

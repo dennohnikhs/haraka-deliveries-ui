@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   TextInput,
@@ -8,8 +8,17 @@ import {
   StatusBar,
 } from "react-native";
 import colors from "../../colors/colors";
+import { useNavigation } from "@react-navigation/native";
 
 const UpdatePassword = () => {
+  const navigation = useNavigation();
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+
+  const handleUpdateNewPassword = () => {
+    navigation.navigate("Login");
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>New Password</Text>
@@ -18,12 +27,16 @@ const UpdatePassword = () => {
 
       <View style={styles.textField}>
         <TextInput
-          placeholder={"Phone Number"}
+          value={newPassword}
+          onChangeText={setNewPassword}
+          placeholder={"New Password"}
           style={styles.input}
           placeholderTextColor="rgba(255, 255, 255, 0.2)"
         />
         <TextInput
-          placeholder={"New Password"}
+          value={confirmNewPassword}
+          onChangeText={setConfirmNewPassword}
+          placeholder={"ConfirmNew Password"}
           style={styles.input}
           placeholderTextColor="rgba(255, 255, 255, 0.2)"
         />
@@ -37,7 +50,7 @@ const UpdatePassword = () => {
         />
       </View> */}
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={handleUpdateNewPassword}>
         <Text style={styles.buttonText}>Update</Text>
       </TouchableOpacity>
     </View>

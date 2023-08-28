@@ -8,8 +8,14 @@ import {
 } from "react-native";
 import React from "react";
 import colors from "../../../../colors/colors";
+import { useNavigation } from "@react-navigation/native";
 
 const ThankYouPage = () => {
+  const navigation = useNavigation();
+
+  const handleBackHome = () => {
+    navigation.navigate("Dashboard");
+  };
   return (
     <View style={styles.background}>
       <StatusBar barStyle="auto" />
@@ -24,7 +30,9 @@ const ThankYouPage = () => {
         </Text>
 
         <TouchableOpacity style={styles.homeButton}>
-          <Text style={styles.homeButtonText}>Back Home</Text>
+          <Text style={styles.homeButtonText} onPress={handleBackHome}>
+            Back Home
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

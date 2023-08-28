@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import {
   View,
@@ -10,6 +12,11 @@ import {
 import colors from "../../colors/colors";
 
 const PasswordReset = () => {
+  const navigation = useNavigation();
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const handlePasswordReset = () => {
+    navigation.navigate("ConfirmPasswordResetCode");
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Reset Password</Text>
@@ -22,14 +29,16 @@ const PasswordReset = () => {
 
       <View style={styles.textField}>
         <TextInput
+          value={phoneNumber}
+          onChangeText={setPhoneNumber}
           placeholder={"Phone Number"}
           style={styles.input}
           placeholderTextColor="rgba(255, 255, 255, 0.2)"
         />
       </View>
 
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Sent</Text>
+      <TouchableOpacity style={styles.button} onPress={handlePasswordReset}>
+        <Text style={styles.buttonText}>Send</Text>
       </TouchableOpacity>
     </View>
   );

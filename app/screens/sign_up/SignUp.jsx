@@ -1,4 +1,5 @@
-import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import React, { useContext, useState } from "react";
 import {
   View,
   TextInput,
@@ -8,8 +9,27 @@ import {
   StatusBar,
 } from "react-native";
 import colors from "../../colors/colors";
+import { GlobalContext } from "../../../context";
 
 const SignUp = () => {
+  const navigation = useNavigation();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [idNumber, setIdNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const {
+    state: { userType },
+  } = useContext(GlobalContext);
+
+  const handleSignUp = () => {
+    navigation.navigate("Login");
+  };
+
+  const handleLogin = () => {
+    navigation.navigate("Login");
+  };
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -18,11 +38,15 @@ const SignUp = () => {
 
       <View style={styles.nameTextField}>
         <TextInput
+          value={firstName}
+          onChangeText={setFirstName}
           placeholder={"First name"}
           style={styles.firstNameInput}
           placeholderTextColor="rgba(255, 255, 255, 0.2)"
         />
         <TextInput
+          value={lastName}
+          onChangeText={setLastName}
           placeholder={"Last name"}
           style={styles.lastNameInput}
           placeholderTextColor="rgba(255, 255, 255, 0.2)"
@@ -31,6 +55,8 @@ const SignUp = () => {
 
       <View style={styles.textField}>
         <TextInput
+          value={email}
+          onChangeText={setEmail}
           placeholder={"Email"}
           style={styles.input}
           placeholderTextColor="rgba(255, 255, 255, 0.2)"
@@ -39,11 +65,15 @@ const SignUp = () => {
 
       <View style={styles.phoneTextField}>
         <TextInput
+          value={phoneNumber}
+          onChangeText={setPhoneNumber}
           placeholder={"Phone Number"}
           style={styles.firstNameInput}
           placeholderTextColor="rgba(255, 255, 255, 0.2)"
         />
         <TextInput
+          value={idNumber}
+          onChangeText={setIdNumber}
           placeholder={"ID Number"}
           style={styles.lastNameInput}
           placeholderTextColor="rgba(255, 255, 255, 0.2)"
@@ -52,6 +82,8 @@ const SignUp = () => {
 
       <View style={styles.textField}>
         <TextInput
+          value={password}
+          onChangeText={setPassword}
           placeholder={"Password"}
           style={styles.input}
           secureTextEntry
@@ -59,11 +91,10 @@ const SignUp = () => {
         />
       </View>
 
-      <Text style={styles.smallText}>
+      <Text style={styles.smallText} onPress={handleLogin}>
         Have an account already? <Text style={styles.loginText}>Log in</Text>
       </Text>
-
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={handleSignUp}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
     </View>
@@ -88,7 +119,7 @@ const styles = StyleSheet.create({
   },
   firstNameInput: {
     height: 50,
-    width: 170,
+    width: "49%",
     borderColor: colors.gray,
     borderWidth: 1,
     marginBottom: 10,
@@ -104,7 +135,7 @@ const styles = StyleSheet.create({
   },
   lastNameInput: {
     height: 50,
-    width: 170,
+    width: "49%",
     borderColor: colors.gray,
     borderWidth: 1,
     marginBottom: 10,

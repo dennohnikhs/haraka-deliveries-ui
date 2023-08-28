@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   TextInput,
@@ -8,8 +8,17 @@ import {
   StatusBar,
 } from "react-native";
 import colors from "../../colors/colors";
+import { useNavigation } from "@react-navigation/native";
 
 const ConfirmPasswordResetCode = () => {
+  const navigation = useNavigation();
+  const [code, setCode] = useState("");
+  const handleConfirmPasswordResetCode = () => {
+    navigation.navigate("UpdatePassword");
+  };
+  const handleDidNotReceiveResetCode = () => {
+    navigation.navigate("PasswordReset");
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Confirm</Text>
@@ -23,31 +32,45 @@ const ConfirmPasswordResetCode = () => {
 
       <View style={styles.codeField}>
         <TextInput
+          value={code}
+          onChangeText={setCode}
           style={styles.codeInput}
           placeholderTextColor="rgba(255, 255, 255, 0.2)"
           maxLength={1}
         />
         <TextInput
+          value={code}
+          onChangeText={setCode}
           style={styles.codeInput}
           placeholderTextColor="rgba(255, 255, 255, 0.2)"
           maxLength={1}
         />
         <TextInput
+          value={code}
+          onChangeText={setCode}
           style={styles.codeInput}
           placeholderTextColor="rgba(255, 255, 255, 0.2)"
           maxLength={1}
         />
         <TextInput
+          value={code}
+          onChangeText={setCode}
           style={styles.codeInput}
           placeholderTextColor="rgba(255, 255, 255, 0.2)"
           maxLength={1}
         />
       </View>
       <Text style={styles.smallText}>
-        Didn't received code? <Text style={styles.loginText}>Resend Code</Text>
+        Didn't received code?{" "}
+        <Text style={styles.loginText} onPress={handleDidNotReceiveResetCode}>
+          Resend Code
+        </Text>
       </Text>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={handleConfirmPasswordResetCode}
+      >
         <Text style={styles.buttonText}>Confirm</Text>
       </TouchableOpacity>
     </View>
