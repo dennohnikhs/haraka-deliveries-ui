@@ -4,6 +4,9 @@ import React from "react";
 //this an initial stat that will be used in the context.
 const defaultState = {
   userType: "",
+  seller: {
+    package_details: {},
+  },
 };
 
 const GlobalContext = React.createContext(defaultState);

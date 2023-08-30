@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, StatusBar, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import colors from "../../../../colors/colors";
+import { useNavigation } from "@react-navigation/native";
 
 const CourierCompanyQRCodeScanner = () => {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const navigation = useNavigation();
 
   useEffect(() => {
     (async () => {
@@ -14,9 +16,9 @@ const CourierCompanyQRCodeScanner = () => {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    navigation.navigate("CourierCompanyQRCodeScreen", { data: data });
   };
 
   if (hasCameraPermission === null) {
@@ -47,6 +49,40 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "flex-end",
+    alignItems: "center",
+    padding: 20,
+    backgroundColor: colors.black,
+  },
+  button: {
+    marginTop: 30,
+    backgroundColor: colors.green,
+    padding: 15,
+    borderRadius: 5,
+    top: 20,
+  },
+  exitButton: {
+    marginTop: 30,
+    backgroundColor: colors.green,
+    padding: 15,
+    borderRadius: 5,
+    top: 20,
+  },
+  buttonText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 15,
+    fontWeight: "400",
+  },
+
+  button: {
+    gap: 10,
+  },
+  scanningArea: {
+    height: "100%",
+    width: "70%",
+  },
+  permissions: {
+    color: colors.white,
   },
 });
 

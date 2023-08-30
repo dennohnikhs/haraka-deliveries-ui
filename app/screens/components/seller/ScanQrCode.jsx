@@ -1,16 +1,32 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
 import colors from "../../../colors/colors";
-import { StatusBar } from "expo-status-bar";
 import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
+import QRCode from "react-native-qrcode-svg";
+import { GlobalContext } from "../../../../context";
 
 const QRCodeScreen = () => {
+  const {
+    state: {
+      seller: {
+        package_details: weight,
+        specialFeatures,
+        valueOfTheGoods,
+        typeOfGoods,
+      },
+    },
+  } = useContext(GlobalContext);
+
   return (
     <View style={styles.container}>
       <ExpoStatusBar style="light" />
       <Text style={styles.title}>Scan the QR Code</Text>
 
-      <View style={styles.scanner} />
+      <QRCode
+        style={styles.scanner}
+        value={(weight, specialFeatures, valueOfTheGoods, typeOfGoods)}
+        size={200}
+      />
       <Text style={styles.instructions}>Hold the camera up to the QR code</Text>
     </View>
   );

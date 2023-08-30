@@ -9,27 +9,46 @@ import {
   TouchableOpacity,
 } from "react-native";
 import colors from "../../../../colors/colors";
+import { useNavigation } from "@react-navigation/native";
 
 export default function SellerHomePage(props) {
+  const navigation = useNavigation();
+  const handleStartNewDeliveries = () => {
+    navigation.navigate("NewDelivery");
+  };
+  const handleSellerProfileEdit = () => {
+    navigation.navigate("SellerProfileEdit");
+  };
+  const handlePastDeliveries = () => {
+    navigation.navigate("SellerPastDeliveries");
+  };
+
   return (
     <View style={styles.background}>
       <StatusBar style="auto" />
       <View style={styles.sellerHeadlineContainer}>
         <View style={styles.welcomeContainer}>
           <Text style={styles.welcomeText}>Welcome</Text>
-          <Image
-            style={styles.sellerProfileImage}
-            source={require("../../../../assets/logo.png")}
-          />
+          <TouchableOpacity onPress={handleSellerProfileEdit}>
+            <Image
+              style={styles.sellerProfileImage}
+              source={require("../../../../assets/logo.png")}
+            />
+          </TouchableOpacity>
         </View>
-        <View style={styles.deliveriesDisplay}>
-          <Text style={styles.totalDeliveriesText}>Total Deliveries</Text>
-          <Text style={styles.totalDeliveriesValue}>10</Text>
-        </View>
+        <TouchableOpacity onPress={handlePastDeliveries}>
+          <View style={styles.deliveriesDisplay}>
+            <Text style={styles.totalDeliveriesText}>Total Deliveries</Text>
+            <Text style={styles.totalDeliveriesValue}>10</Text>
+          </View>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.logoContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleStartNewDeliveries}
+        >
           <Text style={styles.buttonText}>Start New Deliveries</Text>
         </TouchableOpacity>
         <Image

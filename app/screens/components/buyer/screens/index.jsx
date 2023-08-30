@@ -18,6 +18,9 @@ export default function BuyerHomeScreen(props) {
   const handleProfileEdit = () => {
     navigation.navigate("BuyerProfileEdit");
   };
+  const handlePastDeliveries = () => {
+    navigation.navigate("BuyerPastDeliveries");
+  };
   return (
     <View style={styles.background}>
       <StatusBar style="auto" />
@@ -31,10 +34,12 @@ export default function BuyerHomeScreen(props) {
             />
           </TouchableOpacity>
         </View>
-        <View style={styles.deliveriesDisplay}>
-          <Text style={styles.totalDeliveriesText}>Total Deliveries</Text>
-          <Text style={styles.totalDeliveriesValue}>12</Text>
-        </View>
+        <TouchableOpacity onPress={handlePastDeliveries}>
+          <View style={styles.deliveriesDisplay}>
+            <Text style={styles.totalDeliveriesText}>Total Deliveries</Text>
+            <Text style={styles.totalDeliveriesValue}>120</Text>
+          </View>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.logoContainer}>

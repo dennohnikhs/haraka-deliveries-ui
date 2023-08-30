@@ -1,18 +1,25 @@
 import React from "react";
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import colors from "../../../../colors/colors";
-import { StatusBar } from "expo-status-bar";
 import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
+import { useNavigation } from "@react-navigation/native";
+import QRCode from "react-native-qrcode-svg";
 
-const BodaBodaGuyQRCodeScreen = () => {
+const BodaBodaGuyQRCodeScreen = ({ route }) => {
+  const navigation = useNavigation();
+  const { data } = route.params;
+
+  const handlePastDeliveries = () => {
+    navigation.navigate("BodaBodaGuyHomeScreen");
+  };
   return (
     <View style={styles.container}>
       <ExpoStatusBar style="light" />
       <Text style={styles.title}>Scan the QR Code</Text>
 
-      <View style={styles.scanner} />
+      <QRCode style={styles.scanner} value={data} size={200} />
       <Text style={styles.instructions}>Hold the camera up to the QR code</Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={handlePastDeliveries}>
         <Text style={styles.buttonText}>Past Deliveries</Text>
       </TouchableOpacity>
     </View>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,21 +11,59 @@ import {
 } from "react-native";
 
 import colors from "../../../../colors/colors";
-import { LogOut, ArrowUp, ChevronLeft } from "react-native-feather";
+import { LogOut, ChevronLeft } from "react-native-feather";
 import Icon from "react-native-vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
+
 export default function BodaBodaGuyProfileEdit(props) {
+  const navigation = useNavigation();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const handleSaveChanges = () => {
+    if (firstName && lastName && email) {
+      navigation.navigate("BodaBodaGuyHomeScreen");
+      alert("changes saved successfully");
+    } else {
+      return alert("Please fill all the fields");
+    }
+  };
+  const handleGoBackHome = () => {
+    navigation.navigate("BodaBodaGuyHomeScreen");
+  };
+  const handleLogOut = () => {
+    navigation.navigate("Dashboard");
+  };
+  const handlePickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setSelectedImage(result.uri);
+    }
+  };
+
   return (
     <View style={styles.background}>
       <StatusBar style="auto" />
       <View style={styles.welcomeContainer}>
         <View style={styles.backButton}>
           <ChevronLeft
+            onPress={handleGoBackHome}
             style={styles.backButtonArrow}
             stroke="gray"
             width={32}
             height={32}
           />
           <ChevronLeft
+            onPress={handleGoBackHome}
             style={styles.backButtonArrow1}
             stroke="gray"
             width={32}
@@ -42,6 +80,7 @@ export default function BodaBodaGuyProfileEdit(props) {
           source={require("../../../../assets/logo.png")}
         />
         <Icon
+          onPress={handlePickImage}
           name="camera"
           size={20}
           color="green"
@@ -61,11 +100,15 @@ export default function BodaBodaGuyProfileEdit(props) {
       <View style={styles.buyerHeadlineContainer}>
         <View style={styles.nameTextField}>
           <TextInput
+            value={firstName}
+            onChangeText={setFirstName}
             placeholder={"First name"}
             style={styles.firstNameInput}
             placeholderTextColor="rgba(255, 255, 255, 0.2)"
           />
           <TextInput
+            value={lastName}
+            onChangeText={setLastName}
             placeholder={"Last name"}
             style={styles.lastNameInput}
             placeholderTextColor="rgba(255, 255, 255, 0.2)"
@@ -74,16 +117,18 @@ export default function BodaBodaGuyProfileEdit(props) {
 
         <View style={styles.textField}>
           <TextInput
+            value={email}
+            onChangeText={setEmail}
             placeholder={"Email"}
             style={styles.input}
             placeholderTextColor="rgba(255, 255, 255, 0.2)"
           />
         </View>
         <View style={styles.logoContainer}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={handleSaveChanges}>
             <Text style={styles.buttonText}>Save Changes</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.logoutButton}>
+          <TouchableOpacity style={styles.logoutButton} onPress={handleLogOut}>
             <LogOut stroke="white" width={24} height={24} />
             <Text style={styles.buttonText}>Log Out</Text>
           </TouchableOpacity>

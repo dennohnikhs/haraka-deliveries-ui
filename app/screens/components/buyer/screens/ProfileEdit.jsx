@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 import colors from "../../../../colors/colors";
-import { LogOut, ArrowUp, ChevronLeft } from "react-native-feather";
+import { LogOut, ChevronLeft } from "react-native-feather";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";

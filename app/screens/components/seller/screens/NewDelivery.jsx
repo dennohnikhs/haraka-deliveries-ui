@@ -8,8 +8,22 @@ import {
   StatusBar,
 } from "react-native";
 import colors from "../../../../colors/colors";
+import { useNavigation } from "@react-navigation/native";
 
 const NewDelivery = () => {
+  const [fullName, setFullName] = React.useState("");
+  const [phoneNumber, setPhoneNumber] = React.useState("");
+  const [address, setAddress] = React.useState("");
+  const navigation = useNavigation();
+
+  const handleNext = () => {
+    if (fullName && phoneNumber && address) {
+      navigation.navigate("PackageDetails");
+    } else {
+      return alert("Please fill all the details");
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -19,23 +33,29 @@ const NewDelivery = () => {
       </View>
       <View style={styles.textField}>
         <TextInput
+          value={fullName}
+          onChangeText={setFullName}
           placeholder={"Full Name"}
           style={styles.input}
           placeholderTextColor="rgba(255, 255, 255, 0.2)"
         />
         <TextInput
+          value={phoneNumber}
+          onChangeText={setPhoneNumber}
           placeholder={"Phone Number"}
           style={styles.input}
           placeholderTextColor="rgba(255, 255, 255, 0.2)"
         />
         <TextInput
+          value={address}
+          onChangeText={setAddress}
           placeholder={"Address"}
           style={styles.input}
           placeholderTextColor="rgba(255, 255, 255, 0.2)"
         />
       </View>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={handleNext}>
         <Text style={styles.buttonText}>Next</Text>
       </TouchableOpacity>
     </View>

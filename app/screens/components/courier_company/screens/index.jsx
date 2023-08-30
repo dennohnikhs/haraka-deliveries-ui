@@ -9,30 +9,51 @@ import {
   TouchableOpacity,
 } from "react-native";
 import colors from "../../../../colors/colors";
+import { useNavigation } from "@react-navigation/native";
 
 export default function CourierCompanyHomeScreen(props) {
+  const navigation = useNavigation();
+  const handlePastDeliveries = () => {
+    navigation.navigate("CourierCompanyPastDeliveries");
+  };
+  const handleProfilePictureEdit = () => {
+    navigation.navigate("CourierCompanyProfileEdit");
+  };
+  const handleActiveDeliveries = () => {
+    navigation.navigate("CourierCompanyActiveDeliveries");
+  };
+  const handleAddDelivery = () => {
+    navigation.navigate("CourierCompanyQRCodeScanner");
+  };
   return (
     <View style={styles.background}>
       <StatusBar style="auto" />
       <View style={styles.buyerHeadlineContainer}>
         <View style={styles.welcomeContainer}>
           <Text style={styles.welcomeText}>Welcome</Text>
-          <Image
-            style={styles.buyerProfileImage}
-            source={require("../../../../assets/logo.png")}
-          />
+          <TouchableOpacity onPress={handleProfilePictureEdit}>
+            <Image
+              style={styles.buyerProfileImage}
+              source={require("../../../../assets/logo.png")}
+            />
+          </TouchableOpacity>
         </View>
-        <View style={styles.deliveriesDisplay}>
-          <Text style={styles.totalDeliveriesText}>Total Deliveries</Text>
-          <Text style={styles.totalDeliveriesValue}>100</Text>
-        </View>
+        <TouchableOpacity onPress={handlePastDeliveries}>
+          <View style={styles.deliveriesDisplay}>
+            <Text style={styles.totalDeliveriesText}>Total Deliveries</Text>
+            <Text style={styles.totalDeliveriesValue}>100</Text>
+          </View>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.logoContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleAddDelivery}>
           <Text style={styles.buttonText}>Add Delivery</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleActiveDeliveries}
+        >
           <Text style={styles.buttonText}>Active Deliveries</Text>
         </TouchableOpacity>
 

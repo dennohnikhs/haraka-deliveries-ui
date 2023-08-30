@@ -24,9 +24,9 @@ const BuyerQRCodeScanner = () => {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    alert(`Bar code with data ${data} has been scanned!`);
   };
   const handleExitScanning = () => {
     navigation.navigate("ThankYouPage");

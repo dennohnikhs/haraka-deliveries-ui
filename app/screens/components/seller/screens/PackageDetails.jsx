@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   TextInput,
@@ -8,15 +8,35 @@ import {
   StatusBar,
 } from "react-native";
 import colors from "../../../../colors/colors";
+import { useNavigation } from "@react-navigation/native";
+import { GlobalContext } from "../../../../../context";
 
-const PackageDetails = ({
-  sender,
-  receiver,
-  packageDetails,
-  shippingMethod,
-  Brand,
-  ExpiryDate,
-}) => {
+const PackageDetails = () => {
+  const { updateState, state } = useContext(GlobalContext);
+  const [weight, setWeight] = useState("");
+  const [specialFeatures, setSpecialFeatures] = useState("");
+  const [valueOfTheGoods, setValueOfTheGoods] = useState("");
+  const [typeOfGoods, setTypeOfGoods] = useState("");
+
+  const navigation = useNavigation();
+  const handleGenerateQrCode = () => {
+    if (weight && specialFeatures && valueOfTheGoods && typeOfGoods) {
+      navigation.navigate("QRCodeScreen");
+      updateState({
+        seller: {
+          ...state.seller,
+          package_details: {
+            weight,
+            specialFeatures,
+            valueOfTheGoods,
+            typeOfGoods,
+          },
+        },
+      });
+    } else {
+      return alert("Please fill all the details");
+    }
+  };
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -24,18 +44,39 @@ const PackageDetails = ({
         <Text style={styles.headerText}>Package Details</Text>
       </View>
 
-      <Text style={styles.title}>Package Details</Text>
-      <View style={styles.detailsContentsContainer}>
-        <Text style={styles.text}>Price: {sender}</Text>
-        <Text style={styles.text}>Package Name: {receiver}</Text>
-        <Text style={styles.text}>Payment Information: {packageDetails}</Text>
-        <Text style={styles.text}>Payment Method: {shippingMethod}</Text>
-        <Text style={styles.text}>Brand: {Brand}</Text>
-        <Text style={styles.text}>Expiry Date: {ExpiryDate}</Text>
+      <View style={styles.textField}>
+        <TextInput
+          value={weight}
+          onChangeText={setWeight}
+          placeholder={"weight"}
+          style={styles.input}
+          placeholderTextColor="rgba(255, 255, 255, 0.2)"
+        />
+        <TextInput
+          value={specialFeatures}
+          onChangeText={setSpecialFeatures}
+          placeholder={"special features"}
+          style={styles.input}
+          placeholderTextColor="rgba(255, 255, 255, 0.2)"
+        />
+        <TextInput
+          value={valueOfTheGoods}
+          onChangeText={setValueOfTheGoods}
+          placeholder={"value of goods"}
+          style={styles.input}
+          placeholderTextColor="rgba(255, 255, 255, 0.2)"
+        />
+        <TextInput
+          value={typeOfGoods}
+          onChangeText={setTypeOfGoods}
+          placeholder={"type of goods"}
+          style={styles.input}
+          placeholderTextColor="rgba(255, 255, 255, 0.2)"
+        />
       </View>
 
       <View style={styles.buttonContents}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleGenerateQrCode}>
           <Text style={styles.buttonText}>Generate Qr Code</Text>
         </TouchableOpacity>
       </View>
@@ -47,33 +88,41 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "black",
-    paddingTop: 80,
+    paddingTop: 50,
   },
-  text: {
-    color: "white",
-    fontSize: 20,
+
+  textField: {
+    top: 30,
+    margin: 20,
   },
   title: {
-    marginBottom: 20,
     fontSize: 18,
     fontWeight: "bold",
   },
+  input: {
+    height: 50,
+    borderColor: colors.gray,
+    borderWidth: 1,
+    marginBottom: 30,
+    padding: 10,
+    color: colors.white,
+    borderRadius: 7,
+  },
   detailsContentsContainer: {
-    // paddingLeft: 20,
-    // paddingRight: 20,
     padding: 16,
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 8,
-    marginBottom: 16,
+    marginBottom: 50,
     marginLeft: 16,
-    backgroundColor: colors.gray,
+    backgroundColor: colors.green,
     marginRight: 16,
   },
   header: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    marginBottom: 10,
   },
   headerText: {
     fontSize: 25,

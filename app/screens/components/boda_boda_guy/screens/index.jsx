@@ -7,34 +7,51 @@ import {
   StatusBar,
   TouchableOpacity,
 } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
 
 import colors from "../../../../colors/colors";
+import { useNavigation } from "@react-navigation/native";
 
 export default function BodaBodaGuyHomeScreen(props) {
+  const navigation = useNavigation();
+  const handleStartDelivery = () => {
+    navigation.navigate("BodaBodaGuyQRCodeScanner");
+  };
+  const handleProfilePictureEdit = () => {
+    navigation.navigate("BodaBodaGuyProfileEdit");
+  };
+  const handleTotalPastDeliveries = () => {
+    navigation.navigate("BodaBodaGuyPastDeliveries");
+  };
+
   return (
     <View style={styles.background}>
       <StatusBar style="auto" />
       <View style={styles.buyerHeadlineContainer}>
         <View style={styles.welcomeContainer}>
           <Text style={styles.welcomeText}>Welcome</Text>
-          <View style={styles.profileEdit}>
-            <Image
-              style={styles.bodaGuyProfileImage}
-              source={require("../../../../assets/logo.png")}
-            />
+          <TouchableOpacity onPress={handleProfilePictureEdit}>
+            <View style={styles.profileEdit}>
+              <Image
+                style={styles.bodaGuyProfileImage}
+                source={require("../../../../assets/logo.png")}
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity onPress={handleTotalPastDeliveries}>
+          <View style={styles.deliveriesDisplay}>
+            <Text style={styles.totalDeliveriesText}>Total Deliveries</Text>
+            <Text style={styles.totalDeliveriesValue}>120</Text>
           </View>
-        </View>
-        <View style={styles.deliveriesDisplay}>
-          <Text style={styles.totalDeliveriesText}>Total Deliveries</Text>
-          <Text style={styles.totalDeliveriesValue}>12</Text>
-        </View>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.logoContainer}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Start Delivery</Text>
-        </TouchableOpacity>
+        <View style={styles.actionButtons}>
+          <TouchableOpacity style={styles.button} onPress={handleStartDelivery}>
+            <Text style={styles.buttonText}>Start Delivery</Text>
+          </TouchableOpacity>
+        </View>
         <Image
           style={styles.logo}
           source={require("../../../../assets/logo.png")}
@@ -69,13 +86,18 @@ const styles = StyleSheet.create({
   },
 
   logoContainer: {
-    position: "absolute",
-    bottom: 120,
+    bottom: 50,
     alignItems: "center",
+    gap: 20,
   },
   image: {
     height: 319,
     width: 395,
+  },
+  actionButtons: {
+    marginTop: 20,
+    gap: 20,
+    alignItems: "center",
   },
   logo: {
     height: 100,
@@ -90,9 +112,9 @@ const styles = StyleSheet.create({
   deliveriesDisplay: {
     color: colors.black,
     marginBottom: 80,
-    height: 80,
+    height: 100,
     width: "100%",
-    backgroundColor: colors.white,
+    backgroundColor: colors.darkGray,
     display: "flex",
     alignItems: "center",
     borderRadius: 5,
@@ -100,15 +122,16 @@ const styles = StyleSheet.create({
       "rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px",
   },
   totalDeliveriesText: {
-    marginBottom: 5,
-    marginTop: 5,
-    fontSize: 20,
-    fontWeight: "600",
+    marginTop: 20,
+    fontSize: 23,
+    fontWeight: "800",
+    color: colors.white,
   },
   totalDeliveriesValue: {
     fontSize: 20,
     marginTop: 5,
     fontWeight: "800",
+    color: colors.white,
   },
   welcomeContainer: {
     display: "flex",
@@ -121,14 +144,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.green,
     padding: 15,
     borderRadius: 5,
-    marginBottom: 130,
-    height: 50,
-    width: "100%",
+    height: 60,
   },
   buttonText: {
     color: "white",
     textAlign: "center",
-    fontSize: 15,
+    fontSize: 23,
     fontWeight: "400",
   },
   welcomeText: {
